@@ -1,19 +1,19 @@
 NAME
 ====
 
-Air::Plugin::Asciinema - blah blah blah
+Hash::Mangle  - blah blah blah
 
 SYNOPSIS
 ========
 
 ```raku
-use Air::Plugin::Asciinema;
+use Hash::Mangle;
 ```
 
 DESCRIPTION
 ===========
 
-Air::Plugin::Asciinema is ...
+Hash::Mangle is ...
 
 AUTHOR
 ======
