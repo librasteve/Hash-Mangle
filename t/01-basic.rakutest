@@ -1,6 +1,37 @@
 use Test;
 use Hash::Mangle;
 
-pass "replace me";
+# Normalize and compare ignoring order differences
+sub normalize(Str $str) {
+    $str.trans(' ' => '').comb.sort.join
+}
+
+my $expect;
+my $result;
+
+my %a = (
+    foo => { x => 1, y => [1, 2] },
+    bar => [3, 4],
+    baz => 42,
+);
+
+my %b = (
+    foo => { y => [3], z => 2 },
+    bar => [5],
+);
+
+$expect = '$$$(((((()))))),,,,,,,,1122233445::::::[[]]aabbfoorxyzz{{}}';
+$result = combine(%a, %b).raku.&normalize;
+is $result eq $expect, True, 'combine';
+
+
+my %c = (
+    foo => ['john doe', 'eric snork'],
+    bar => 'dave whom',
+);
+
+$expect = '"""""""""""",,===>>>aabcddeeeffhhijkmnnoooooooorrrsvw{}';
+$result = evert(%c).raku.&normalize;
+is $result eq $expect, True, 'evert';
 
 done-testing;

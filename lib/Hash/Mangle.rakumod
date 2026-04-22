@@ -1,32 +1,25 @@
 unit class Hash::Mangle;
 
+multi sub combine(Hash \a, \b --> Hash()) is export {
+    (a.keys ∪ b.keys).keys
+        .map: -> $k {
+        $k =>
+            (a{$k}:exists) && (b{$k}:exists)
+            ?? combine(a{$k}, b{$k})
+            !! a{$k} // b{$k}
+    }
+}
+multi sub combine(\a, \b --> Array()) is export {
+    (|a, |b).unique
+}
 
-=begin pod
-
-=head1 NAME
-
-Hash::Mangle - blah blah blah
-
-=head1 SYNOPSIS
-
-=begin code :lang<raku>
-
-use Hash::Mangle;
-
-=end code
-
-=head1 DESCRIPTION
-
-Hash::Mangle is ...
-
-=head1 AUTHOR
-
-librasteve <librasteve@furnival.net>
-
-=head1 COPYRIGHT AND LICENSE
-
-Copyright 2026 librasteve
-
-This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
-
-=end pod
+# add recursion & arrays
+sub evert(%x) is export {
+    my %h;
+    for %x.kv -> $k, $v {
+        for $v.unique -> $v {
+            %h{$v} = $k;
+        }
+    }
+    %h;
+}
