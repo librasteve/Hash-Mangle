@@ -1,25 +1,15 @@
 {
-  "auth": "zef:librasteve",
-  "authors": [
-    "librasteve"
-  ],
-  "build-depends": [
-  ],
-  "depends": [
-  ],
-  "description": "blah blah blah",
-  "license": "Artistic-2.0",
-  "name": "Hash::Mangle",
-  "perl": "6.d",
-  "provides": {
-    "Hash::Mangle": "lib/Hash/Mangle.rakumod"
-  },
-  "resources": [
-  ],
-  "source-url": "",
-  "tags": [
-  ],
-  "test-depends": [
-  ],
-  "version": "0.0.1"
+    "name": "Hash::Mangle",
+    "description": "Combine and evert hashes",
+    "version": "0.0.1",
+    "authors": [
+        "librasteve"
+    ],
+    "auth": "zef:librasteve",
+    "build-depends": [],
+    "provides": {
+        "Hash::Mangle": "lib/Hash/Mangle.rakumod"
+    },
+    "license": "Artistic-2.0",
+    "source-url": ""
 }

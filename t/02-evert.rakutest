@@ -1,0 +1,35 @@
+use Test;
+use Hash::Mangle;
+use Data::Dump::Tree;
+
+# Normalize and compare ignoring order differences
+sub normalize(Str $str) {
+    $str.trans(' ' => '').comb.sort.join
+}
+
+my $expect;
+my $result;
+
+#normalized canonical data
+my %a = (
+    'real name' => <nick1 nick2>,
+    'john doe' => ['johnny', 'johno'],
+);
+my %b = (
+    'dave whom' => 'davie',
+);
+
+my %c = combine(%a, %b);
+
+$expect = '""""""""""""""""$$(),,,,12===>>>[]aaaaccdddeeeeehhhhiiijjjkklmmnnnnnnnoooooorvvwy{}';
+$result = %c.raku.&normalize;
+is $result eq $expect, True, 'combine';
+
+#denormalized reverse lookup
+my %d = evert(%c);
+
+$expect = '""""""""""((((())))),,,,12:::::aaaaaaccddddeeeeeeeehhhhhiiijjjjkkllmmmnnnnnnnnnoooooooorrvvwy{}';
+$result = %d.raku.&normalize;
+is $result eq $expect, True, 'evert';
+
+done-testing;
